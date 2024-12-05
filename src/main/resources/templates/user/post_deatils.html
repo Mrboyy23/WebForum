@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="layoutuser :: layoutuser">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<main  th:fragment="content">
+  <div id="reportModal" class="report-modal">
+    <div class="report-modal-content">
+      <span class="close-btn" onclick="closeReportModal()">&times;</span>
+      <h3>Report this Question</h3>
+      <textarea id="reportTextarea" placeholder="Enter your report here..."></textarea>
+      <button th:onclick="'repost(this)'" >Submit Report</button>
+    </div>
+  </div>
+<section class="main-content920">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9">
+        <div class="post-details">
+          <div class="details-header923">
+            <div class="row">
+              <div class="col-md-8">
+                <div class="post-title-left129">
+                  <h3 th:text="${postsEntity.title}"></h3> </div>
+              </div>
+              <div class="col-md-4">
+                <div class="post-que-rep-rihght320"> <button id="questionButton"><i class="fa fa-question-circle" aria-hidden="true"></i> Question</button> <button onclick="openReportModal()" >Report</button> </div>
+              </div>
+            </div>
+          </div>
+          <div class="post-details-info1982">
+            <p style=" white-space: pre-wrap;" th:text="${postsEntity.content}"></p>
+            <hr>
+            <div class="post-footer29032">
+              <div class="l-side2023"> <button onclick="toggleLike()" id="likeButton" class="fa fa-check check1" style=" border: none; background-color: white; "  > Like</button> <a href="#"><i class="fa fa-star star2" aria-hidden="true">  5</i></a> <i class="fa fa-folder folder2" aria-hidden="true"> wordpress</i> <i class="fa fa-clock-o clock2" aria-hidden="true"> 4 min ago</i> <a href="#"><i class="fa fa-commenting commenting2" aria-hidden="true"> 5 answer</i></a> <i class="fa fa-user user2" aria-hidden="true" id="view-count"  th:text="${postsEntity.repostCount != null ? postsEntity.repostCount : 0} + ' views'"></i>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="share-tags-page-content12092">
+          <div class="l-share2093"> <i class="fa fa-share" aria-hidden="true"> <a href="#">Share</a></i> </div>
+          <div class="R-tags309">
+            <i class="fa fa-tags" aria-hidden="true">
+        <span th:each="tag, iterStat : ${tags}">
+            <a href="#" th:text="${tag}"></a>
+          <!-- Thêm dấu phẩy và khoảng trắng giữa các tag nếu không phải là tag cuối cùng -->
+            <span th:if="${iterStat.index < tags.size() - 1}">, </span>
+        </span>
+            </i>
+          </div>
+
+        </div>
+        <div class="author-details8392">
+          <div class="author-img202l"> <img th:src="@{/img/images.png}" alt="image">
+            <div class="au-image-overlay text-center"> <a href="#"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a> </div>
+          </div> <span class="author-deatila04re">
+                   <h5>About the Author</h5>
+
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed viverra auctor neque. Nullam lobortis, sapien vitae lobortis tristique.</p>
+
+                </span> </div>
+        <div class="related3948-question-part">
+          <h3>Related questions</h3>
+          <hr>
+          <p><a href="#"><i class="fa fa-angle-double-right" aria-hidden="true"></i>This Is My Second Poll Question</a></p>
+          <p><a href="#"><i class="fa fa-angle-double-right" aria-hidden="true"></i>This is my third Question</a></p>
+          <p><a href="#"><i class="fa fa-angle-double-right" aria-hidden="true"></i>This is my fourth Question</a></p>
+          <p><a href="#"><i class="fa fa-angle-double-right" aria-hidden="true"></i>This is my fifth Question</a></p>
+        </div>
+        <div id="comments-section" >
+          <div class="comment-list12993 scrollbar"  style="max-height: 800px; padding: 10px; overflow-y: auto;overflow-x: hidden">
+            <div class="container">
+              <div class="row">
+
+                <div class="comments-container">
+                  <ul id="comments-list" class="comments-list">
+                    <li th:each="comments : ${comments}">
+                      <div class="comment-main-level" th:if="${comments.mapComments != null and comments.postId == postsEntity.postId}">
+                        <!-- Avatar -->
+                        <div class="comment-avatar">
+                          <img th:src="@{/img/images.png}" alt="">
+                        </div>
+                        <!-- Contenedor del Comentario -->
+                        <div class="comment-box">
+                          <div class="comment-head">
+                            <h6 class="comment-name"><a href="#" th:text="${comments.name}">Lorena Rojero</a></h6>
+                            <span><i class="fa fa-clock-o" aria-hidden="true" th:text="${comments.createdAt}"></i></span>
+                            <i class="fa fa-reply"></i> <i class="fa fa-heart"></i>
+                          </div>
+                          <div class="comment-content" style=" white-space: pre-wrap;" th:text="${comments.content}"></div>
+                          <div class="comment-footer">
+                            <button class="like-btn" th:data-comment-id="${comments.commentId}" th:onclick="'toggleLikeComment('+${comments.commentId}+')'" >
+                              <i class="fa fa-thumbs-up"></i> Like
+                            </button>
+                            <button   class="answer-btn" >
+                              <i class="fa fa-reply"></i> Answer
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="comment-answer-box" style="display:none;">
+                        <input type="text" class="comment-input" placeholder="Write your answer..." style="width: 700px">
+                        <button class="submit-answer-btn" th:onclick="'postComment(' + ${comments.commentId} + ', this)'"  >Submit Answer</button>
+                      </div>
+
+                      <!-- Nested Replies -->
+                      <ul class="comments-list reply-list">
+                        <li th:each="lst : ${comments.mapComments}">
+                          <div class="comment-avatar">
+                            <img th:src="@{/img/images.png}" alt="">
+                          </div>
+                          <div class="comment-box">
+                            <div class="comment-head">
+                              <h6 class="comment-name"><a href="#" th:text="${lst.name}">Lorena Rojero</a></h6>
+                              <span><i class="fa fa-clock-o" aria-hidden="true" th:text="${lst.createdAt}"></i></span>
+                              <i class="fa fa-reply"></i> <i class="fa fa-heart"></i>
+                            </div>
+                            <div class="comment-content" style=" white-space: pre-wrap;" th:text="${lst.content}"></div>
+                            <div class="comment-footer">
+                              <button class="like-btn" th:data-comment-id="${lst.commentId}" th:onclick="'toggleLikeComment('+${lst.commentId}+')'">
+                                <i class="fa fa-thumbs-up"></i> Like
+                              </button>
+
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="comment289-box" style="display: none;">
+          <h3>Leave A Answer</h3>
+          <hr>
+          <div class="row">
+
+            <div class="col-md-12">
+              <div class="post9320-box">
+                <input  style="width: 100%" type="text" class="comment-input" placeholder="Enter Your Post Answer"> </div>
+              <button type="submit" class="pos393-submit" onclick="postComment(0, this)">Post Your Answer</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!--                end of col-md-9 -->
+      <!--           strart col-md-3 (side bar)-->
+      <div th:insert="~{sidebarUser :: sidebarFragment}" ></div>
+    </div>
+  </div>
+</section>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    // Lắng nghe sự kiện click vào nút "Question"
+    document.getElementById("questionButton").addEventListener("click", function() {
+      var parentId = null; // Khi nhấn nút "Question", parentId = null
+      var commentBox = document.querySelector(".comment289-box");
+
+      // Nếu commentBox đang ẩn, hiển thị nó
+      if (commentBox.style.display === "none" || commentBox.style.display === "") {
+        commentBox.style.display = "block";
+
+        // Cuộn trang đến vị trí của commentBox
+        commentBox.scrollIntoView({ behavior: 'smooth' });
+
+        // Gửi yêu cầu AJAX với parentId = null (vì đây là câu hỏi)
+
+      } else {
+        // Nếu đã hiển thị, ẩn nó
+        commentBox.style.display = "none";
+      }
+    });
+
+    // Lắng nghe sự kiện click vào các nút "Answer"
+    $(document).on('click', '.answer-btn', function() {
+      // Lấy commentId từ data-comment-id của phần tử li hiện tại
+      var commentId = $(this).closest('li').data('comment-id');
+
+      // Tìm form trả lời tương ứng và ẩn/hiện nó
+      var answerBox = $(this).closest('li').find('.comment-answer-box');
+
+      // Ẩn/hiện form trả lời cho comment này
+      if (answerBox.is(":hidden")) {
+        answerBox.show(); // Hiển thị form trả lời
+        answerBox.find(".comment-input").focus(); // Focus vào input
+      } else {
+        answerBox.hide(); // Ẩn form trả lời nếu đã hiển thị
+      }
+
+      // Gửi yêu cầu AJAX với parentId = commentId khi trả lời một bình luận
+
+    });
+
+    // Hàm gửi thông tin bài trả lời (câu hỏi hoặc câu trả lời)
+    // Phương thức gửi bình luận qua Ajax
+    function postComment(parentId, obj) {
+      var input = $(obj).parent().find(".comment-input").val();
+      var userId = [[${user.userId}]]; // Điều này phải lấy từ session hoặc dữ liệu phía server
+      var postId = [[${postId}]];
+
+      // Gửi yêu cầu Ajax với parentId và nội dung bình luận
+      $.ajax({
+        url: '/user/submitcomment',
+        method: 'POST',
+        data: {
+          parentId: parentId,
+          content: input,
+          userId: userId,
+          postId: postId
+        },
+        success: function(response) {
+          console.log("Comment successfully posted", response);
+          loadComments();
+
+
+        },
+        error: function(error) {
+          console.error("Error posting comment", error);
+        }
+      });
+    }
+    function repost(obj) {
+      var input = $(obj).parent().find("#reportTextarea").val();
+      var postId = [[${postId}]];
+
+      // Gửi yêu cầu Ajax với parentId và nội dung bình luận
+      $.ajax({
+        url: '/user/repost',
+        method: 'POST',
+        data: {
+          content: input,
+          postId: postId
+        },
+        success: function(response) {
+          $(obj).parent().find("#reportTextarea").val('');
+          alert("Repost đã được gửi!");
+
+
+        },
+        error: function(error) {
+          console.error("Error Repost", error);
+        }
+      });
+    }
+
+
+    // Phương thức để load lại danh sách bình luận sau khi gửi thành công
+    function loadComments() {
+      var postId = [[${postId}]] /* lấy postId ở đây */;
+      fetch('/user/post_detail/' + postId)  // Gửi yêu cầu AJAX đến endpoint mới
+              .then(response => response.text())  // Nhận dữ liệu HTML trả về từ server
+              .then(data => {
+                document.body.innerHTML = data;  // Cập nhật phần comments mới vào DOM
+                checkLikeStatus();
+                const userId = [[${user.userId}]];  // Lấy userId từ session
+                const comments = document.querySelectorAll('.like-btn');
+                comments.forEach(button => {
+                  const commentId = button.getAttribute('data-comment-id');
+                  checkLikeStatusComment(commentId, userId);  // Cập nhật lại trạng thái like cho mỗi bình luận
+                });
+              })
+
+              .catch(error => console.error('Error loading comments:', error));
+    }
+
+  </script>
+
+
+  <script>
+    $(document).ready(function() {
+      var postId = [[${postId}]]; // Lấy ID bài viết từ model
+
+      function updateViews() {
+        $.ajax({
+          url: '/user/post_detail/' + postId , // Đảm bảo đường dẫn này chính xác
+          type: 'POST',
+          success: function(response) {
+            $('#view-count').text(response);
+          },
+          error: function() {
+            console.error('Có lỗi xảy ra khi gửi yêu cầu.');
+          }
+        });
+
+      }
+
+      setInterval(updateViews, 30000); // Gửi yêu cầu mỗi 30 giây
+    });
+  </script>
+  <script>
+    // Get postId and userId from the server-side model using Thymeleaf
+    var postId = [[${postsEntity.postId}]];  // The ID of the post from the server-side model
+    var userId = [[${user.userId}]];         // The ID of the logged-in user from the server-side model
+
+    // Function to check if the user has liked the post and update button appearance
+    function checkLikeStatus() {
+      // Make a request to check if the user has liked this post
+      fetch(`/user/hasLiked/${postId}/${userId}`)
+              .then(response => response.json())
+              .then(data => {
+                const likeButton = document.getElementById('likeButton');
+                if (data) {
+                  // If the user has liked the post, change button appearance
+                  likeButton.style.color = 'blue';  // Set button to green (liked)
+                  likeButton.textContent = 'Like';           // Change text to 'Liked'
+                } else {
+                  // If the user has not liked the post, revert button appearance
+                  likeButton.style.color = 'black';  // Set button to white (not liked)
+                  likeButton.textContent = 'Like';            // Change text to 'Like'
+                }
+              })
+              .catch(error => console.error('Error checking like status:', error));
+
+    }
+
+    // Function to toggle like/unlike
+    function toggleLike() {
+      // Send a request to toggle like/unlike for this post
+      fetch(`/user/like?postId=${postId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      })
+              .then(response => {
+                if (response.ok) {
+                  // After toggling, check the updated like status
+                  checkLikeStatus(); // Refresh the button status after action
+                } else {
+                  console.error('Error toggling like status');
+                }
+              })
+              .catch(error => console.error('Error toggling like:', error));
+    }
+    function checkLikeStatusComment(commentId, userId) {
+      fetch(`/user/hasLikedcomment/${commentId}/${userId}`)
+              .then(response => response.json())
+              .then(data => {
+                const likeButton = document.querySelector(`button[data-comment-id="${commentId}"]`);
+                const likeText = likeButton.querySelector('.like-text');
+
+                if (data) {
+                  // Nếu đã like, thay đổi màu và nội dung
+                  likeButton.style.color = 'blue';
+                  likeText.textContent = 'Liked';
+                } else {
+                  // Nếu chưa like, quay lại màu sắc mặc định
+                  likeButton.style.color = 'black';
+                  likeText.textContent = 'Like';
+                }
+              })
+              .catch(error => console.error('Error checking like status:', error));
+    }
+    function toggleLikeComment(commentId) {
+      fetch(`/user/likecomment?commentId=${commentId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      })
+              .then(response => {
+                if (response.ok) {
+                  // After toggling, check the updated like status
+                  checkLikeStatusComment(commentId, userId) // Refresh the button status after action
+                } else {
+                  console.error('Error toggling like status');
+                }
+              })
+              .catch(error => console.error('Error toggling like:', error));
+    }
+
+
+    // Check like status on page load
+    window.onload = function() {
+      checkLikeStatus();
+      const userId = [[${user.userId}]];  // Lấy userId từ session
+      const comments = document.querySelectorAll('.like-btn');
+
+      comments.forEach(button => {
+        const commentId = button.getAttribute('data-comment-id');
+        checkLikeStatusComment(commentId, userId);
+      });
+    };
+  </script>
+  <script>// Function to open the report modal
+  function openReportModal() {
+    document.getElementById('reportModal').style.display = 'block';
+  }
+
+  // Function to close the report modal
+  function closeReportModal() {
+    document.getElementById('reportModal').style.display = 'none';
+  }
+
+
+
+  // Close modal if clicked outside the modal content area
+  window.onclick = function(event) {
+    if (event.target === document.getElementById('reportModal')) {
+      closeReportModal();
+    }
+  };
+  </script>
+</main>
+
+
+</body>
+</html>

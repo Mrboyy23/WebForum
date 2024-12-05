@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="layoutadmin :: layoutadmin">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<main class="app-main" th:fragment="admincontent"> <!--begin::App Content Header-->
+  <div class="app-content-header"> <!--begin::Container-->
+    <div class="container-fluid"> <!--begin::Row-->
+      <div class="row">
+        <div class="col-sm-6">
+          <h3 class="mb-0">User</h3>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-end">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">
+              Simple Tables
+            </li>
+          </ol>
+        </div>
+      </div> <!--end::Row-->
+    </div> <!--end::Container-->
+  </div> <!--end::App Content Header--> <!--begin::App Content-->
+  <div class="app-content"> <!--begin::Container-->
+    <div class="container-fluid"> <!--begin::Row-->
+      <div class="row">
+        <div class="col-md-6" style="width: 100%">
+          <div class="card mb-4" style="width: 100%">
+            <div class="card-header">
+              <h3 class="card-title">User</h3>
+            </div> <!-- /.card-header -->
+            <div class="card-body">
+              <table class="table table-bordered">
+                <thead>
+                <tr>
+                  <th style="width: 10px">repostId</th>
+                  <th>postId</th>
+                  <th>userId</th>
+                  <th>content</th>
+                  <th>createdAt</th>
+
+                  <th></th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="align-middle" th:each="repost : ${reposts}">
+                  <td th:text="${repost.repostId}" ></td>
+                  <td th:text="${repost.postId}" ></td>
+                  <td th:text="${repost.userId}" ></td>
+                  <td style=" white-space: pre-wrap;" th:text="${repost.content}"></td>
+                  <td th:text="${repost.createdAt}" ></td>
+                  <td>
+                    <a><span class="badge text-bg-warning">confirm</span></a>
+                    <a><span class="badge text-bg-warning">Delete</span></a>
+                  </td>
+
+
+                </tr>
+
+
+
+                </tbody>
+              </table>
+            </div> <!-- /.card-body -->
+            <div class="card-footer clearfix">
+
+              <ul class="pagination pagination-sm m-0 float-end">
+                <!-- Previous Button -->
+                <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled' : ''">
+                  <a class="page-link" th:href="@{/admin/repost(page=${currentPage - 1})}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+
+                <!-- Page Numbers -->
+                <li class="page-item" th:each="pageNum : ${#numbers.sequence(0, totalPages - 1)}"
+                    th:classappend="${pageNum == currentPage} ? 'active' : ''">
+                  <a class="page-link" th:href="@{/admin/repost(page=${pageNum})}" th:text="${pageNum + 1}"></a>
+                </li>
+
+                <!-- Next Button -->
+                <li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled' : ''">
+                  <a class="page-link" th:href="@{/admin/repost(page=${currentPage + 1})}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div> <!-- /.card -->
+
+        </div> <!-- /.col -->
+
+      </div> <!--end::Row-->
+    </div> <!--end::Container-->
+  </div> <!--end::App Content-->
+</main>
+</body>
+</html>

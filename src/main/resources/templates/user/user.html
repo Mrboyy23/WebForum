@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="layoutuser :: layoutuser">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<main  th:fragment="content">
+  <section class="header-descriptin329">
+    <div class="container">
+      <h3>User Deatils</h3>
+      <ol class="breadcrumb breadcrumb839">
+        <li><a href="#">Home</a></li>
+        <li class="active">User Details</li>
+      </ol>
+    </div>
+  </section>
+  <section class="main-content920">
+    <div class="container">
+      <div class="row">
+        <!--    body content-->
+        <div class="col-md-9">
+          <div class="about-user2039 mt-70">
+            <div class="user-title3930">
+              <h3>About <a href="#"  th:onclick="'triggerFileInput()'" style="font-weight: bold" th:text="${user.name}">Ahmed Hassan</a>
+
+                <span class="badge229">
+                        <a href="#">Follow</a></span>
+              </h3>
+              <hr> </div>
+            <div class="user-image293"> <img th:src="'/img/'+${user.img}" alt="Image"> </div>
+            <form th:action="@{/user/uploadImage/{userId}(userId=${user.userId})}" method="post" enctype="multipart/form-data">
+              <!-- Input file ẩn đi và kích hoạt khi nhấn vào tên -->
+              <input type="file" id="fileInput" name="file" style="display: none;" accept="image/*" onchange="this.form.submit()">
+              <button type="submit" style="display: none;"></button>
+            </form>
+            <div class="user-list10039">
+              <div class="ul-list-user-left29">
+                <ul>
+                  <li th:text="'Create At: '+${user.createdAt}"><i class="fa fa-plus" aria-hidden="true"></i> <strong>Registered:</strong> June 4, 2014</li>
+                  <li><i class="fa fa-map-marker" aria-hidden="true"></i> <strong>Country:</strong> Egypt</li>
+                  <li><i class="fa fa-heart" aria-hidden="true"></i> <strong>Age:</strong> 27</li>
+                  <li><i class="fa fa-globe" aria-hidden="true"></i> <strong>Website:</strong><a href="#">view</a></li>
+                </ul>
+              </div>
+              <div class="ul-list-user-right29">
+                <ul>
+                  <li th:text="'Email: '+${user.email}" ><i class="fa fa-phone" aria-hidden="true"></i> <strong>Email:</strong> </li>
+                  <li><i class="fa fa-globe" aria-hidden="true"></i> <strong>City:</strong> Cairo</li>
+                  <li><i class="fa fa-user" aria-hidden="true"></i> <strong>Sex: </strong>Male</li>
+                </ul>
+              </div>
+            </div>
+            <div class="user-description303">
+              <p>Duis dapibus aliquam mi, eget euismod sem scelerisque ut. Vivamus at elit quis urna adipiscing iaculis. Curabitur vitae velit in neque dictum blandit. Proin in iaculis neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Curabitur vitae velit in neque dictum blandit.</p>
+              <a th:href="@{/user/mess/{userId}(userId=${user.userId})}"  >Ask Ahmed Hasan</a> </div>
+
+          </div>
+          <div class="user-statas921">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="ul_list_ul_list-icon-ok281">
+                  <ul>
+                    <li><a href="#">Questions ( 4 )</a></li>
+                    <li><a href="#">Asked Questions ( 0 )</a></li>
+                    <li><a href="#">Followed Questions ( 3 )</a></li>
+                    <li><a href="#">Posts ( 10 )</a></li>
+                    <li><a href="#">Points ( 208 )</a></li>
+                    <li><a href="#">Followers ( 47 )</a></li>
+                    <li><a href="#">Comments ( 1 )</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="ul_list_ul_list-icon-ok281">
+                  <ul>
+                    <li><a href="#">Questions ( 4 )</a></li>
+                    <li><a href="#">Asked Questions ( 0 )</a></li>
+                    <li><a href="#">Followed Questions ( 3 )</a></li>
+                    <li><a href="#">Posts ( 10 )</a></li>
+                    <li><a href="#">Points ( 208 )</a></li>
+                    <li><a href="#">Followers ( 47 )</a></li>
+                    <li><a href="#">Comments ( 1 )</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!--                end of col-md-9 -->
+        <!--           strart col-md-3 (side bar)-->
+        <div th:insert="~{sidebarUser :: sidebarFragment}" ></div>
+      </div>
+    </div>
+  </section>
+  <script>
+    // Hàm để kích hoạt input file khi nhấn vào tên
+    function triggerFileInput() {
+      document.getElementById('fileInput').click();
+    }
+  </script>
+</main>
+</body>
+</html>

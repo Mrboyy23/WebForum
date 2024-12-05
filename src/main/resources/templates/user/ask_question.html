@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="layoutuser :: layoutuser">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<main th:fragment="content">
+  <section class="header-descriptin329">
+    <div class="container">
+      <h3>Ask Question</h3>
+      <ol class="breadcrumb breadcrumb839">
+        <li><a href="#">Home</a></li>
+        <li class="active">Ask Question</li>
+      </ol>
+    </div>
+  </section>
+  <section class="main-content920">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-9">
+          <div class="ask-question-input-part032">
+            <h4>Ask Question</h4>
+            <hr>
+            <form id="formId" th:action="@{/user/submit_post}" method="post" enctype="multipart/form-data">
+              <div class="username-part940">
+                <span class="form-description43" style="margin-right: 150.53px">Tag* </span><input type="text" name="tags" class="username029" placeholder="Enter your Tags" required>
+              </div>
+
+              <div class="question-title39">
+                <span class="form-description433">Question-Title* </span><input type="text" name="questionTitle" class="question-ttile32" placeholder="Write Your Question Title" required>
+              </div>
+
+              <div class="categori49">
+                <span class="form-description43305">Category* </span>
+                <label>
+                  <input list="categories" name="category" class="list-category53"/></label>
+                <datalist id="categories">
+                  <option th:each="category : ${category}" th:value="${category.categoryId}" th:text="${category.name}" required></option>
+
+                </datalist>
+              </div>
+              <div class="button-groupt-addfile3239">
+                <span class="form-description23993">Attactment*</span><input type="file" name="ffile" class="question-ttile3226">
+
+              </div>
+              <div class="details2-239" >
+                <div class="col-md-12 nopadding" style="height: 350px; border:  #1a1d20 1px solid" >
+                  <textarea name="content" id="content" required ></textarea>
+                </div>
+
+              </div>
+              <div class="publish-button2389">
+                <button type="submit" class="publis1291">Publish your Question</button>
+              </div>
+            </form>
+
+
+
+          </div>
+
+
+        </div>
+        <!--                end of col-md-9 -->
+
+        <!--           strart col-md-3 (side bar)-->
+        <div th:insert="~{sidebarUser :: sidebarFragment}" ></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+</body>
+</html>

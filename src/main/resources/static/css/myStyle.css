@@ -1,0 +1,36 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Định dạng tiêu đề bảng */
+th {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 2px solid #dee2e6;
+}
+
+/* Định dạng các ô dữ liệu */
+td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+/* Tô màu cho các hàng chẵn để dễ đọc hơn */
+tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Tô màu các hàng khi di chuột qua */
+tbody tr:hover {
+    background-color: #e9ecef;
+}
+
+/* Định dạng cho card */
+.card-body {
+    padding: 20px;
+}

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="layoutuser">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="title" content="Ask online Form">
+    <meta name="description" content="The Ask is a bootstrap design help desk, support forum website template coded and designed with bootstrap Design, Bootstrap, HTML5 and CSS. Ask ideal for wiki sites, knowledge base sites, support forum sites">
+    <meta name="keywords" content="HTML, CSS, JavaScript,Bootstrap,js,Forum,webstagram ,webdesign ,website ,web ,webdesigner ,webdevelopment">
+    <meta name="robots" content="index, nofollow">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="language" content="English">
+    <title>Ask Me</title>
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/editor.css}" rel="stylesheet" type="text/css">
+
+    <link th:href="@{/css/animate.css}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/stylesmess.css}">
+    <link th:href="@{/css/font-awesome.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/responsive.css}" rel="stylesheet" type="text/css"> </head>
+
+<body >
+<!--======== Navbar =======-->
+<div class="top-bar">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="navbar-menu-left-side239">
+                    <ul>
+                        <li><a href="#"><i class="fa fa-envelope-o" aria-hidden="true"></i>Contact</a></li>
+                        <li><a href="#"><i class="fa fa-headphones" aria-hidden="true"></i>Support</a></li>
+                        <li><a href="#"><i class="fa fa-user" aria-hidden="true" th:text="${user.name}"></i></a></li>
+                        <li><a href="#"><i class="fa fa-sign-out" aria-hidden="true" >Logout</i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="navbar-serch-right-side">
+                    <form class="navbar-form" role="search">
+                        <div class="input-group add-on">
+                            <input class="form-control form-control222" placeholder="Search" id="srch-term" type="text">
+                            <div class="input-group-btn">
+                                <button class="btn btn-default btn-default2913" type="button"><i class="glyphicon glyphicon-search"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- ==========header mega navbar=======-->
+<div class="top-menu-bottom932">
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+                <a class="navbar-brand" href="#"><img th:src="@{/img/logo.png}" alt="Logo"></a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav"> </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a th:href="@{/user/index}" methods="get">Home</a></li>
+                    <li><a th:href="@{/user/mess}" methods="get">Messenger</a></li>
+                    <li><a th:href="@{/user/ask_question}" methods="get">Ask Question</a></li>
+                    <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Question <span class="caret"></span></a>
+                        <ul class="dropdown-menu animated zoomIn">
+                            <li th:each="cate : ${category}"><a th:href="@{/user/index/{categoryId}(categoryId=${cate.categoryId})}" th:text="${cate.name}"></a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Blog <span class="caret"></span></a>
+                        <ul class="dropdown-menu animated zoomIn">
+                            <li><a href="blog.html">Blog </a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Page <span class="caret"></span></a>
+                        <ul class="dropdown-menu animated zoomIn">
+
+
+                            <li><a th:href="@{/user/ask_question}"> Ask Question </a></li>
+
+                            <li><a th:href="@{/user/profile}">Profile</a></li>
+
+
+                        </ul>
+                    </li>
+                    <li><a href="contact_us.html">Contact us</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+</div>
+
+<main th:replace="~{::content}" ></main>
+
+
+<!--    footer -->
+<section class="footer-part">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="info-part-one320">
+                    <h4>Where We Are ?</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi adipiscing gravida odio, sit amet suscipit risus ultrices eu.</p>
+                    <h4>Address :</h4>
+                    <p>Ask Me Network, 33 Street, syada
+                        <br> Zeinab, Cairo, Egypt.</p>
+                    <h4>Support :</h4>
+                    <p>Support Telephone No : (+2)01111011110</p>
+                    <p>Support Email Account : </p>
+                    <p>info@example.com</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="info-part-two320">
+                    <h4>Quick Links</h4>
+                    <a href="#">
+                        <p>-Home</p>
+                    </a>
+                    <a href="#">
+                        <p>-Ask Question</p>
+                    </a>
+                    <a href="#">
+                        <p>-Questions</p>
+                    </a>
+                    <a href="#">
+                        <p>-Users</p>
+                    </a>
+                    <a href="#">
+                        <p>-Edit Profile</p>
+                    </a>
+                    <a href="#">
+                        <p>-Page</p>
+                    </a>
+                    <a href="#">
+                        <p>-Contact Us</p>
+                    </a>
+                    <a href="#" class="last-child12892">
+                        <p>-Buy now</p>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="info-part-three320">
+                    <h4>Popular Questions</h4>
+                    <div class="news-info209">
+                        <h5>Why are the British confused</h5>
+                        <p>(Why I darest say, they darest not get offended when they so ...</p> <small>July 16, 2017</small> </div>
+                    <div class="news-info209">
+                        <h5>How to approach applying for</h5>
+                        <p>(I am trying to find/change my career trajectory. Its a good cozy ...</p> <small>July 16, 2017</small> </div>
+                    <div class="news-info209">
+                        <h5>How to evaluate whether a</h5>
+                        <p>A friend of mine is the CEO of his own small business. ...</p> <small>July 16, 2017</small> </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="info-part-four320">
+                    <h4>Latest Tweets</h4>
+                    <div class="tweet-details29">
+                        <p><i class="fa fa-twitter-square" aria-hidden="true"></i><a href="#"> codeThemesCheck a new update #AskMe #ThemeForest #WordPress #2code #Envato#2code
+                            Themehttps://t.co/urb3LgsOCi</a></p> <small>about 2 weeks ago</small> </div>
+                    <div class="tweet-details29">
+                        <p><i class="fa fa-twitter-square" aria-hidden="true"></i><a href="#"> codeThemesCheck a new update #AskMe #ThemeForest #WordPress #2code #Envato#2code
+                            Themehttps://t.co/urb3LgsOCi</a></p> <small>about 2 weeks ago</small> </div>
+                    <div class="tweet-details29">
+                        <p><i class="fa fa-twitter-square" aria-hidden="true"></i><a href="#"> codeThemesCheck a new update #AskMe #ThemeForest #WordPress #2code #Envato#2code
+                            Themehttps://t.co/urb3LgsOCi</a></p> <small>about 2 weeks ago</small> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="footer-social">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <p>Copyright 2017 Ask me | <strong>Sudo  Coder</strong></p>
+            </div>
+            <div class="col-md-6">
+                <div class="social-right2389"> <a href="#"><i class="fa fa-twitter-square" aria-hidden="true"></i></a> <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a> <a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a> <a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a> <a href="#"><i class="fa fa-skype" aria-hidden="true"></i></a> <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a> <a href="#"><i class="fa fa-rss" aria-hidden="true"></i></a> </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script th:src="@{/js/jquery-3.1.1.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/editor.js}"></script>
+<script>
+    $(document).ready(function() {
+        // Khởi tạo editor
+        $("#txtEditor").Editor();
+
+
+    });
+</script>
+<script>
+    let stompClient = null;
+    let userId = document.querySelector("#senderId").getAttribute("data-sender-id");
+
+    // Thiết lập kết nối WebSocket
+    function connect() {
+        const socket = new SockJS("/ws");
+        stompClient = Stomp.over(socket);
+
+        stompClient.connect({}, function (frame) {
+            console.log('Connected: ' + frame);
+            // Lắng nghe tin nhắn mới từ WebSocket
+            stompClient.subscribe('/topic/messages/' + userId, function (messageOutput) {
+                const message = JSON.parse(messageOutput.body);
+                displayMessage(message); // Hiển thị tin nhắn
+            });
+        });
+    }
+
+    // Hàm mở cửa sổ chat và tải tin nhắn từ WebSocket và từ cơ sở dữ liệu
+    function openChatWindow(userId) {
+        // Hiển thị cửa sổ chat
+        $("#chatWindow").show();
+
+        // Cập nhật tên người nhận
+        const receiverName = document.querySelector(`a[data-userid="${userId}"] .chat-name h4`).textContent;
+        $("#chatWithName").text(receiverName);
+        $("#chatWithName").attr("data-userid", userId);
+
+        // Xóa các tin nhắn cũ trong cửa sổ chat
+        $("#chatMessages").empty();
+
+        // Gửi yêu cầu AJAX để lấy tin nhắn giữa người dùng và người nhận (bỏ phần ?senderId=)
+        $.get("/user/messages/" + userId, function(messages) {
+            // Duyệt qua tất cả các tin nhắn và hiển thị
+            messages.forEach(function(message) {
+                displayMessage(message); // Hiển thị tin nhắn từ server
+            });
+
+            // Cuộn cửa sổ chat xuống cuối sau khi tải tin nhắn
+            $('#chatMessages').scrollTop($('#chatMessages')[0].scrollHeight);
+        });
+    }
+
+    // Gửi tin nhắn
+    $("#sendButton").click(function () {
+        const messageContent = $("#messageInput").val();
+        const receiverId = $("#chatWithName").attr("data-userid");
+
+        if (messageContent.trim() !== "") {
+            const messageDTO = {
+                senderId: userId,
+                receiverId: receiverId,
+                content: messageContent
+            };
+
+            stompClient.send("/app/sendMessage", {}, JSON.stringify(messageDTO)); // Gửi tin nhắn qua WebSocket
+            $("#messageInput").val(""); // Xóa nội dung sau khi gửi
+        }
+    });
+
+    // Hiển thị tin nhắn mới
+    function displayMessage(message) {
+        // Kiểm tra xem tin nhắn là của người gửi hay người nhận
+        const isSent = Number(message.senderId) === Number(userId);
+        console.log('isdend: ' + isSent);
+        // Tạo HTML cho tin nhắn
+        const messageHtml = `
+        <div class="message ${isSent ? 'sent' : 'received'}">
+            <p>${message.content}</p>
+        </div>
+    `;
+
+        // Thêm tin nhắn vào cửa sổ chat
+        $("#chatMessages").append(messageHtml);
+
+        // Cuộn cửa sổ chat xuống cuối sau khi tải tin nhắn
+        $('#chatMessages').scrollTop($('#chatMessages')[0].scrollHeight);
+    }
+
+    // Kết nối WebSocket khi trang được tải
+    $(document).ready(function () {
+        connect();  // Thiết lập kết nối WebSocket
+    });
+
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
+
+
+</body>
+
+</html>

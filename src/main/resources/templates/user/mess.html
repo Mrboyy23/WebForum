@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="layoutuser :: layoutuser">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Messenger UI</title>
+</head>
+<body >
+<main class="messenger" th:fragment="content">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 chat-list">
+        <h3>Chats</h3>
+        <ul>
+          <li th:each="user : ${users}" >
+            <a href="javascript:void(0);" th:onclick="'openChatWindow(' + ${user.userId} + ')'"  th:attr="data-userid=${user.userId}">
+              <div class="chat-avatar"><img th:src="@{/img/images.png}" width="50px" height="50px" alt="User"></div>
+              <div class="chat-name"><h4 th:text="${user.name}"></h4></div>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col-md-8 chat-window" id="chatWindow" style="display: none">
+        <div class="chat-header">
+          <h4>Chat with <span id="chatWithName"></span></h4>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+          <div class="message received">
+            <p>Hello! How can I help you today?</p>
+          </div>
+          <div class="message sent">
+            <p>I need assistance with my account.</p>
+          </div>
+        </div>
+        <div class="chat-input">
+          <input type="text" id="messageInput" placeholder="Type your message..." />
+          <button type="submit" id="sendButton"><i class="fa fa-paper-plane"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div th:attr="data-sender-id=${senderId}" id="senderId" style="display:none;"></div>
+
+</main>
+
+
+</body>
+</html>

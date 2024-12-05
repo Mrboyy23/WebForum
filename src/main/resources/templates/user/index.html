@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="layoutuser :: layoutuser">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<main  th:fragment="content">
+<!--======= welcome section on top background=====-->
+<section class="welcome-part-one">
+    <div class="container">
+        <div class="welcome-demop102 text-center">
+            <h2>Welcome to Ask me, Awesome Questions & Answer Template</h2>
+            <p>Duis dapibus aliquam mi, eget euismod sem scelerisque ut. Vivamus at elit quis urna adipiscing iaculis. Curabitur vitae velit in neque dictum blandit. Proin in iaculis neque. Pellentesque
+                <br> habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Curabitur vitae velit in neque dictum blandit</p>
+            <div class="button0239-item">
+                <a href="#">
+                    <button type="button" class="aboutus022">About Us</button>
+                </a>
+                <a href="#">
+                    <button type="button" class="join92">Join Now</button>
+                </a>
+            </div>
+            <div class="form-style8292">
+                <div class="input-group"> <span class="input-group-addon"><i class="fa fa-pencil-square" aria-hidden="true"></i></span>
+                    <input type="text" class="form-control form-control8392" placeholder="Ask any question and you be sure find your answer ?"> <span class="input-group-addon"><a href="#">Ask Now</a></span> </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ======content section/body=====-->
+<section class="main-content920">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div id="main">
+                    <input id="tab1" type="radio" name="tabs" checked>
+                    <label for="tab1">Recent Question</label>
+                    <input id="tab2" type="radio" name="tabs">
+                    <label for="tab2">Most Response</label>
+                    <input id="tab3" type="radio" name="tabs">
+                    <label for="tab3">Recently Answered</label>
+                    <input id="tab4" type="radio" name="tabs">
+                    <label for="tab4">No Answer</label>
+                    <input id="tab5" type="radio" name="tabs">
+                    <label for="tab5">Recent Post</label>
+
+
+
+                    <section id="content1">
+                        <!--Recent Question Content Section -->
+                        <div class="question-type2033">
+                            <div class="row" th:each="post : ${post}">
+                                <div class="col-md-1">
+                                    <div class="left-user12923 left-user12923-repeat">
+                                        <a href="#"><img th:src="@{/img/images.png}" alt="image"> </a> <a href="#"><i class="fa fa-check" aria-hidden="true"></i></a> </div>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="right-description893">
+                                        <div id="que-hedder2983">
+                                            <h3><a th:href="@{/user/post_detail/{id}(id=${post.postId})} "  th:text="${post.title}"></a></h3> </div>
+                                        <div class="ques-details10018">
+                                            <p style=" white-space: pre-wrap;" th:text="${post.content}"></p>
+                                        </div>
+                                        <hr>
+                                        <div class="ques-icon-info3293"> <a href="#"><i class="fa fa-star" aria-hidden="true"> 5 </i> </a> <a href="#"><i class="fa fa-folder" aria-hidden="true"> wordpress</i></a> <a href="#"><i class="fa fa-clock-o" aria-hidden="true" th:text="${post.updatedAt}"></i></a> <a href="#"><i class="fa fa-question-circle-o" aria-hidden="true"> Question</i></a> <a href="#"><i class="fa fa-bug" aria-hidden="true"> Report</i></a> </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="ques-type302">
+                                        <a href="#">
+                                            <button type="button" class="q-type238"><i class="fa fa-comment" aria-hidden="true" th:text="${commentcount[post.postId] != null ? commentcount[post.postId] : 0}"> </i></button>
+                                        </a>
+                                        <a href="#">
+                                            <button type="button" class="q-type23 button-ques2973"> <i class="fa fa-user-circle-o" aria-hidden="true" th:text="${post.repostCount}"> </i> </button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination">
+                                <!-- Previous Button -->
+                                <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled' : ''">
+                                    <a class="page-link" th:href="@{/user/index(page=${currentPage - 1})}" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+
+                                <!-- Page Numbers -->
+                                <li class="page-item" th:each="pageNum : ${#numbers.sequence(0, totalPages - 1)}"
+                                    th:classappend="${pageNum == currentPage} ? 'active' : ''">
+                                    <a class="page-link" th:href="@{/user/index(page=${pageNum})}" th:text="${pageNum + 1}"></a>
+                                </li>
+
+                                <!-- Next Button -->
+                                <li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled' : ''">
+                                    <a class="page-link" th:href="@{/user/index(page=${currentPage + 1})}" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+
+
+                    </section>
+                    <!--  End of content-1------>
+
+
+
+                </div>
+            </div>
+            <!--end of col-md-9 -->
+            <!--strart col-md-3 (side bar)-->
+            <div th:insert="~{sidebarUser :: sidebarFragment}" ></div>
+        </div>
+    </div>
+</section>
+</main>
+</body>
+</html>
